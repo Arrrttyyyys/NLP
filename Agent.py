@@ -111,6 +111,12 @@ def self_cost_answer(question:str,mode:str,k:int =3) -> str:
     return best
 
 
+def answer_reflection(question:str,candidate:str) -> str:
+    if not candidate:
+        return candidate
+    system = "you are the best grader and problem solver. If the answer given to you is correct, repeat the answer back. if the answer is worng, solve it step by step and output the corrected answer.in the final line write 'Final Answer:<answer>' and nothing else"
+    propmt = ()
+
 
 
 
