@@ -115,7 +115,14 @@ def answer_reflection(question:str,candidate:str) -> str:
     if not candidate:
         return candidate
     system = "you are the best grader and problem solver. If the answer given to you is correct, repeat the answer back. if the answer is worng, solve it step by step and output the corrected answer.in the final line write 'Final Answer:<answer>' and nothing else"
-    propmt = ()
+    propmt = ("consider the following question and answer.\n"
+              "Question: {}\n"
+              f"{question}\n"
+              "Given answer: \n"
+              f"{candidate}\n"
+              "please decide wheter the given answer is correct. if it is correct repeat the answer back as the final answer"
+              "If it is incorrect, solve the problem step by step and output the correct final answer")
+    
 
 
 
