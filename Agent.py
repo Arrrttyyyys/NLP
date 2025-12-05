@@ -4,6 +4,7 @@
 
 import os, json, textwrap, re, time
 import requests
+from collections import Counter
 
 API_KEY  = os.getenv("OPENAI_API_KEY", "cse476")
 API_BASE = os.getenv("API_BASE", "http://10.4.58.53:41701/v1")  
@@ -52,6 +53,10 @@ def call_model_chat_completions(prompt: str,
     except requests.RequestException as e:
         return {"ok": False, "text": None, "raw": None, "status": -1, "error": str(e), "headers": {}}
 
+
+
+
+
 def route_question(question):
     q = question.lower()
     if re.search(r'\b[a-d]\)',question) or re.search(r'\bA\.\s)',question) or "option" in q:
@@ -89,6 +94,24 @@ def parse_final(text:str) -> str:
     if len(ans) > 200:
         ans = ans[:200]
     return ans
+
+def self_cost_answer(question:str,mode:str,k:int =3) -> str:
+    system, propmt = system_and_prompt(question,mode)
+    answers = []
+    for _ in range(k):
+        r = call_model_chat_completions(propmt,system=system,temperature=0.7)
+        text = (r.get('text') or "").strip()
+        ans = parse_final(text)
+        if ans:
+            answers.append(ans)
+    if not answers:
+        return "VOLCANO"
+    counts = Counter(answers)
+    best, _ = counts.most_common(1)[0]
+    return best
+
+
+
 
 
 
