@@ -40,7 +40,7 @@ def build_answers(questions: List[Dict[str, Any]]) -> List[Dict[str, str]]:
     # return answers
     answers = []
     for q in questions:
-        answers.append
+        answers.append({"output": run_agent(q["input"])})
     return answers
 
 
