@@ -72,7 +72,7 @@ def system_and_prompt(question:str, mode:str):
         system = "You are a helpful assistant that answers multiple choice questions.Read the questions and the options, decide which option is correct and then you must output ONLY the content of the correct option NOT the letter. Do not output A/B/C/D/E or give any explanation."
         prompt = question
     elif mode == "math":
-        system = "You are a careful and expert mathematician.Reply ONLY the final numerical value or the simplest expression, Do not show any steps or explanations"
+        system = "You are a careful and expert mathematician.Solve the problem internally but Reply ONLY the final numerical value or the simplest expression, Do not show any calculations or explanations or steps"
         prompt = question
     elif mode == "rc":
         system = "You are a helpful assistant that reads passages and answers questions, reply with ONLY the final answer as a a word, short phrase or a number, Do not give any explanation or extra text"
@@ -93,10 +93,10 @@ def parse_final(text:str) -> str:
     return ans
 
 def self_cost_answer(question:str,mode:str,k:int =3) -> str:
-    system, propmt = system_and_prompt(question,mode)
+    system, prompt = system_and_prompt(question,mode)
     answers = []
     for _ in range(k):
-        r = call_model_chat_completions(propmt,system=system,temperature=0.7)
+        r = call_model_chat_completions(prompt,system=system,temperature=0.7)
         text = (r.get('text') or "").strip()
         ans = parse_final(text)
         if ans:
