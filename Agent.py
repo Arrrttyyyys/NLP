@@ -110,7 +110,7 @@ def parse_final(text:str) -> str:
     else:
         l = [ln.strip() for ln in text.strip().splitlines() if ln.strip()]
         ans = l[-1] if l else "VOLCANO"
-        
+
     if len(ans) > 200:
         ans = ans[:200]
     return ans
@@ -134,14 +134,20 @@ def self_cost_answer(question:str,mode:str,k:int =3) -> str:
 def answer_reflection(question:str,candidate:str) -> str:
     if not candidate:
         return candidate
-    system = "you are the best grader and problem solver. you will be given a question and a proposed answer. you job is to check if the proposed answer is correct. if it is correct, repeat ONLY the same answer, if the proposed answer is wrong, solve the problem and reply with only the corrected final answer, in all cases, reply with just the final answer text with no explanations. If the answer you provide me with is wrong, I could lose my life "
+    # system = "you are the best grader and problem solver. you will be given a question and a proposed answer. you job is to check if the proposed answer is correct. if it is correct, repeat ONLY the same answer, if the proposed answer is wrong, solve the problem and reply with only the corrected final answer, in all cases, reply with just the final answer text with no explanations. If the answer you provide me with is wrong, I could lose my life "
+    system = "you are the best grader and problem solver. you will be given a question and a proposed answer." \
+        "your job is to check if the proposed answer is correct. if it is correct, repeat ONLY the same answer \n" \
+        "if the proposed answer is wrong, solve the problem and reply with the corrected final answer"\
+        "when giving the final answer. write exactly as: \n" \
+        "Final Answer: <answer> \n" \
+        "DO NOT add anything after the final answer"
     prompt = ("consider the following question and answer.\n"
               "Question: {}\n"
               f"{question}\n"
               "Given answer: \n"
               f"{candidate}\n"
               "please decide wheter the given answer is correct. if it is correct repeat the answer back as the final answer"
-              "If it is incorrect,fix the answer and reply with only the corrct final answer with no explanations.If the answer you provide me with is wrong, I could lose my life")
+              "If it is incorrect,fix the answer and reply with only the corrct final answer with no explanations")
     r = call_model_chat_completions(prompt,system=system,temperature=0.0)
     text = (r.get('text') or "").strip()
     ans = parse_final(text)
