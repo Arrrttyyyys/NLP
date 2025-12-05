@@ -59,7 +59,7 @@ def call_model_chat_completions(prompt: str,
 
 def route_question(question):
     q = question.lower()
-    if re.search(r'\b[a-d]\)',question) or re.search(r'\bA\.\s)',question) or "option" in q:
+    if re.search(r'\b[a-d]\)',question) or re.search(r'\bA\.\s',question) or "option" in q:
         return "mcq"
     if any(sym in question for sym in ['+','$','-','*','/','=','^']) or re.search(r'\d',question):
         return "math"
@@ -115,14 +115,14 @@ def answer_reflection(question:str,candidate:str) -> str:
     if not candidate:
         return candidate
     system = "you are the best grader and problem solver. If the answer given to you is correct, repeat the answer back. if the answer is worng, solve it step by step and output the corrected answer.in the final line write 'Final Answer:<answer>' and nothing else"
-    propmt = ("consider the following question and answer.\n"
+    prompt = ("consider the following question and answer.\n"
               "Question: {}\n"
               f"{question}\n"
               "Given answer: \n"
               f"{candidate}\n"
               "please decide wheter the given answer is correct. if it is correct repeat the answer back as the final answer"
               "If it is incorrect, solve the problem step by step and output the correct final answer")
-    r = call_model_chat_completions(propmt,system=system,temperature=0.0)
+    r = call_model_chat_completions(prompt,system=system,temperature=0.0)
     text = (r.get('text') or "").strip()
     ans = parse_final(text)
     return ans or candidate
@@ -131,4 +131,7 @@ def answer_reflection(question:str,candidate:str) -> str:
 
 
 def run_agent(question_input: str) -> str:
-   return "placeholder"
+    mode = route_question(question_input)
+    candidate = self_cost_answer(question_input,mode,k=3)
+    final_answer = answer_reflection(question_input,candidate)
+    return final_answer.strip()
