@@ -62,5 +62,12 @@ def route_question(question):
         return "rc"
     return "default"
 
+def system_and_prompt(question:str, mode:str):
+    if mode == "mcq":
+        system = "You are a helpful assistant that answers multiple choice questions,Please think step by step but in the final line write 'Final Answer:<one of A,B,C,D,E>' and nothing else"
+        prompt = question
+    elif mode == "math":
+
+
 def run_agent(question_input: str) -> str:
    return "placeholder"
