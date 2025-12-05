@@ -71,16 +71,17 @@ def route_question(question):
 
 def system_and_prompt(question:str, mode:str):
     if mode == "mcq":
-        system = "You are a helpful assistant that answers multiple choice questions.Read the questions and the options, decide which option is correct and then you must output ONLY the content of the correct option NOT the letter. Do not output A/B/C/D/E or give any explanation."
+        system = "You are a helpful assistant that answers multiple choice questions.Read the questions and the options, decide which option is correct and then you must output ONLY the content of the correct option NOT the letter. Do not output A/B/C/D/E or give any explanation. If the answer you provide me with is wrong, I could lose my life"
         prompt = question
     elif mode == "math":
-        system = "You are a careful and expert mathematician.Solve the problem step by step but REPLY ONLY WITH THE CORRECT ANSWER, Do not show any calculations or explanations or steps"
+        system = "You are a careful and expert mathematician.Solve the problem step by step using basic arithmetic and math solving skills" \
+        "but REPLY ONLY WITH THE CORRECT ANSWER, Do not show any calculations or explanations or steps. If the answer you provide me with is wrong, I could lose my life"
         prompt = question
     elif mode == "rc":
-        system = "You are a helpful assistant that reads passages and answers questions,you can reason step by step but REPLY ONLY WITH THE CORRECT ANSWER, Do not give any explanation or extra text"
+        system = "You are a helpful assistant that reads passages and answers questions,you can reason step by step but REPLY ONLY WITH THE CORRECT ANSWER, Do not give any explanation or extra text. If the answer you provide me with is wrong, I could lose my life"
         prompt = question
     else:
-        system = "You are a helpful reasonsing assistant,Please think stpe by step but REPLY ONLY WITH THE CORRECT ANSWER, Do not give any explanation or extra text"
+        system = "You are a helpful reasonsing assistant,Please think stpe by step but REPLY ONLY WITH THE CORRECT ANSWER, Do not give any explanation or extra text. If the answer you provide me with is wrong, I could lose my life"
         prompt = question
     return system, prompt
 
@@ -113,14 +114,14 @@ def self_cost_answer(question:str,mode:str,k:int =3) -> str:
 def answer_reflection(question:str,candidate:str) -> str:
     if not candidate:
         return candidate
-    system = "you are the best grader and problem solver. you will be given a question and a proposed answer. you job is to check if the proposed answer is correct. if it is correct, repeat ONLY the same answer, if the proposed answer is wrong, solve the problem and reply with only the corrected final answer, in all cases, reply with just the final answer text with no explanations. "
+    system = "you are the best grader and problem solver. you will be given a question and a proposed answer. you job is to check if the proposed answer is correct. if it is correct, repeat ONLY the same answer, if the proposed answer is wrong, solve the problem and reply with only the corrected final answer, in all cases, reply with just the final answer text with no explanations. If the answer you provide me with is wrong, I could lose my life "
     prompt = ("consider the following question and answer.\n"
               "Question: {}\n"
               f"{question}\n"
               "Given answer: \n"
               f"{candidate}\n"
               "please decide wheter the given answer is correct. if it is correct repeat the answer back as the final answer"
-              "If it is incorrect,fix the answer and reply with only the corrct final answer with no explanations.")
+              "If it is incorrect,fix the answer and reply with only the corrct final answer with no explanations.If the answer you provide me with is wrong, I could lose my life")
     r = call_model_chat_completions(prompt,system=system,temperature=0.0)
     text = (r.get('text') or "").strip()
     ans = parse_final(text)
