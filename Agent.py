@@ -74,7 +74,8 @@ def system_and_prompt(question:str, mode:str):
         system = "You are a helpful assistant that answers multiple choice questions.Read the questions and the options, decide which option is correct and then you must output ONLY the content of the correct option NOT the letter. Do not output A/B/C/D/E or give any explanation. If the answer you provide me with is wrong, I could lose my life"
         prompt = question
     elif mode == "math":
-        system = "You are a careful and expert mathematician.Solve the problem step by step using basic arithmetic and math solving skills" \
+        # system = "You are a math solver, when a question is given to you, you must solve it and compute the correct answer,YOU MUST ALWAYS RETURN ONLY THE FINAL NUMERIC ANSWER, no explanation, no steps, no words, no lables, no punctuation, if your output contains anything except the number it is considered wrong." 
+        system = "You are a careful and expert mathematician.Solve the problem step by step using basic arithmetic and math solving skills. " \
         "but REPLY ONLY WITH THE CORRECT ANSWER, Do not show any calculations or explanations or steps. If the answer you provide me with is wrong, I could lose my life"
         prompt = question
     elif mode == "rc":
