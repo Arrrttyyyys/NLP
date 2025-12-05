@@ -69,16 +69,16 @@ def route_question(question):
 
 def system_and_prompt(question:str, mode:str):
     if mode == "mcq":
-        system = "You are a helpful assistant that answers multiple choice questions,Please think step by step but in the final line write 'Final Answer:<one of A,B,C,D,E>' and nothing else"
+        system = "You are a helpful assistant that answers multiple choice questions,Please think step by step.you must output ONLY the actual answers NOT the letter. Do not output A/B/C/D/E or give any explanation."
         prompt = question
     elif mode == "math":
-        system = "You are a careful and expert mathematician,Please think step by step but in the final line write'Final answer: <expression>' and nothing else "
+        system = "You are a careful and expert mathematician,Please think step by step.Reply the finals answer as ONLY the final numerical value or the simplest expression, Do not show any steps or explanations"
         prompt = question
     elif mode == "rc":
-        system = "You are a helpful assistant that reads passages and answers questions,Please think step by step but in the final line write 'Final Answer:<short answer>' and nothing else"
+        system = "You are a helpful assistant that reads passages and answers questions, Please ONLY answer with the final answer in a word, short phrase or a number, Do not give any explanation or extra text"
         prompt = question
     else:
-        system = "You are a helpful reasonsing assistant,Please think step by step but in the final line write 'Final Answer:<answer>' and nothing else"
+        system = "You are a helpful reasonsing assistant,Please ONLY answer with the final answer in a word, short phrase or a number, Do not give any explanation or extra text"
         prompt = question
     return system, prompt
 
