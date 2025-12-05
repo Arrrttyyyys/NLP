@@ -67,6 +67,15 @@ def system_and_prompt(question:str, mode:str):
         system = "You are a helpful assistant that answers multiple choice questions,Please think step by step but in the final line write 'Final Answer:<one of A,B,C,D,E>' and nothing else"
         prompt = question
     elif mode == "math":
+        system = "You are a careful and expert mathematician,Please think step by step but in the final line write'Final answer: <expression>' and nothing else "
+        prompt = question
+    elif mode == "rc":
+        system = "You are a helpful assistant that reads passages and answers questions,Please think step by step but in the final line write 'Final Answer:<short answer>' and nothing else"
+        prompt = question
+    else:
+        system = "You are a helpful reasonsing assistant,Please think step by step but in the final line write 'Final Answer:<answer>' and nothing else"
+        prompt = question
+
 
 
 def run_agent(question_input: str) -> str:
