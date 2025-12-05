@@ -52,7 +52,10 @@ def call_model_chat_completions(prompt: str,
     except requests.RequestException as e:
         return {"ok": False, "text": None, "raw": None, "status": -1, "error": str(e), "headers": {}}
 
-
+def route_question(question):
+    q = question.lower()
+    if re.search(r'\b[a-d]\)',question) or re.search(r'\bA\.\s)',question) or "option" in q:
+        return "mcq"
 
 def run_agent(question_input: str) -> str:
    return "placeholder"
