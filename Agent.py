@@ -71,7 +71,7 @@ def route_question(question):
 
 def system_and_prompt(question:str, mode:str):
     if mode == "mcq":
-        system = "You are a helpful assistant that answers multiple choice questions.Read the questions and the options, decide which option is correct and you can reason step by step, Reply with only the text of the correct option and not the letter of the optionDo NOT include the option letter (A/B/C/D/E) and DO NOT add explanations or extra words "
+        system = "You are a helpful assistant that answers multiple choice questions.Read the questions and the options, decide which option is correct and you can reason step by step, Reply with only the text of the correct option and not the letter of the optionDo NOT include the option letter (A/B/C/D/E) and DO NOT add explanations or extra words. do not restate the questions. output only the option text"
         # "Only write the answer of the option, not the option itself in the final answer. "\
         # "Reply with only the text of the correct option and not the letter of the option" \
         # "Do NOT include the option letter (A/B/C/D/E) and DO NOT add explanations or extra words "
@@ -80,20 +80,20 @@ def system_and_prompt(question:str, mode:str):
         # system = "You are a math solver, when a question is given to you, you must solve it and compute the correct answer,YOU MUST ALWAYS RETURN ONLY THE FINAL NUMERIC ANSWER, no explanation, no steps, no words, no lables, no punctuation, if your output contains anything except the number it is considered wrong." 
         # system = "You are a careful and expert mathematician.Solve the problem step by step using basic arithmetic and math solving skills. " \
         # "but REPLY ONLY WITH THE CORRECT ANSWER, Do not show any calculations or explanations or steps. If the answer you provide me with is wrong, I could lose my life"
-        system = "You are a careful and expert mathematician.Solve the problem step by step internally, Reply only with the final numerical value or the simplest expression. DO NOT show any steps, equations, or words, just the final answer " 
+        system = "You are a careful and expert mathematician.Solve the problem step by step internally, Reply only with the final numerical value. DO NOT show any steps, equations,explanations or words, just the final answer " 
         # "when giving the final answer. write exactly as: \n" \
         # "Final Answer: <final numerical value or simplest expression> \n" \
         # "DO NOT add anything after the final answer"
         prompt = question
     elif mode == "rc":
-        system = "You are a helpful assistant that reads passages and answers questions,you can reason step by step but REPLY ONLY WITH THE CORRECT ANSWER, Do not give any explanation or extra text."
+        system = "You are a helpful assistant that reads passages and answers questions. output only the final answer, no explanations or extra text. "
         # system = "You are a helpful assistant that reads passages and answers questions, you are allowed to reason step by step" \
         # "when giving the final answer. write exactly as: \n" \
         # "Final Answer: <short answer which can be a word,phrase,number> \n" \
         # "DO NOT add anything after the final answer"
         prompt = question
     else:
-        system = "You are a helpful reasonsing assistant,Please think stpe by step but REPLY ONLY WITH THE CORRECT ANSWER, Do not give any explanation or extra text."
+        system = "You are a helpful reasonsing assistant, REPLY ONLY WITH THE CORRECT ANSWER as a word or a number, Do not give any explanation or extra text."
         # system = "You are a helpful reasonsing assistant, you are allowed to reason step by step" \
         # "when giving the final answer. write exactly as: \n" \
         # "Final Answer: <short answer which can be a word,phrase,number> \n" \
@@ -134,7 +134,7 @@ def self_cost_answer(question:str,mode:str,k:int =3) -> str:
 def answer_reflection(question:str,candidate:str) -> str:
     if not candidate:
         return candidate
-    system = "you are the best grader and problem solver. you will be given a question and a proposed answer. you job is to check if the proposed answer is correct. if it is correct, repeat ONLY the same answer, if the proposed answer is wrong, solve the problem and reply with only the corrected final answer, in all cases, reply with just the final answer text with no explanations. If the answer you provide me with is wrong, I could lose my life "
+    system = "you are the best grader and problem solver. you will be given a question and a proposed answer. you job is to check if the proposed answer is correct. if it is correct, repeat ONLY the same answer, if the proposed answer is wrong, solve the problem and reply with only the corrected final answer, in all cases, reply with just the final answer text with no explanations."
     # system = "you are the best grader and problem solver. you will be given a question and a proposed answer." \
     #     "your job is to check if the proposed answer is correct. if it is correct, repeat ONLY the same answer \n" \
     #     "if the proposed answer is wrong, solve the problem and reply with the corrected final answer"\
