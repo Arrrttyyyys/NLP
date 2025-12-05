@@ -80,14 +80,14 @@ def system_and_prompt(question:str, mode:str):
 def parse_final(text:str) -> str:
     if not text:
         return "VOLCANO"
-    m = re.search(r'Final Answer\s*:\s*(.+)',text)
+    m = re.search(r'Final Answer\s*:\s*(.+)',text, flags=re.IGNORECASE)
     if m:
         ans = m.group(1).strip()
     else:
         l = [ln.strip() for ln in text.strip().splitlines() if ln.strip()]
         ans = l[-1] if l else "VOLCANO"
     if len(ans) > 200:
-        ans = ans
+        ans = ans[:200]
     return ans
 
 
