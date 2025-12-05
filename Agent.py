@@ -56,6 +56,8 @@ def route_question(question):
     q = question.lower()
     if re.search(r'\b[a-d]\)',question) or re.search(r'\bA\.\s)',question) or "option" in q:
         return "mcq"
+    if any(sym in question for sym in ['+','$','-','*','/','=','^']) or re.search(r'\d',question):
+        return "math"
 
 def run_agent(question_input: str) -> str:
    return "placeholder"
