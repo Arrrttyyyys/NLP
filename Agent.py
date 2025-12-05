@@ -74,13 +74,13 @@ def system_and_prompt(question:str, mode:str):
         system = "You are a helpful assistant that answers multiple choice questions.Read the questions and the options, decide which option is correct and then you must output ONLY the content of the correct option NOT the letter. Do not output A/B/C/D/E or give any explanation."
         prompt = question
     elif mode == "math":
-        system = "You are a careful and expert mathematician.Solve the problem internally but Reply ONLY the final numerical value or the simplest expression, Do not show any calculations or explanations or steps"
+        system = "You are a careful and expert mathematician.Solve the problem step by step but Reply ONLY the final numerical value or the simplest expression, Do not show any calculations or explanations or steps"
         prompt = question
     elif mode == "rc":
-        system = "You are a helpful assistant that reads passages and answers questions, reply with ONLY the final answer as a a word, short phrase or a number, Do not give any explanation or extra text"
+        system = "You are a helpful assistant that reads passages and answers questions,you can reason step by step but reply with ONLY the final answer as a a word, short phrase or a number, Do not give any explanation or extra text"
         prompt = question
     else:
-        system = "You are a helpful reasonsing assistant,reply with ONLY the final answer as a a word, short phrase or a number, Do not give any explanation or extra text"
+        system = "You are a helpful reasonsing assistant,Please think stpe by step but reply with ONLY the final answer as a a word, short phrase or a number, Do not give any explanation or extra text"
         prompt = question
     return system, prompt
 
