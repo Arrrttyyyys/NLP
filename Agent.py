@@ -58,6 +58,9 @@ def route_question(question):
         return "mcq"
     if any(sym in question for sym in ['+','$','-','*','/','=','^']) or re.search(r'\d',question):
         return "math"
+    if len(question) > 500 or 'passage' in q or 'context' in q:
+        return "rc"
+    return "default"
 
 def run_agent(question_input: str) -> str:
    return "placeholder"
