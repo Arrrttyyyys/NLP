@@ -122,9 +122,10 @@ def answer_reflection(question:str,candidate:str) -> str:
               f"{candidate}\n"
               "please decide wheter the given answer is correct. if it is correct repeat the answer back as the final answer"
               "If it is incorrect, solve the problem step by step and output the correct final answer")
-    
-
-
+    r = call_model_chat_completions(propmt,system=system,temperature=0.0)
+    text = (r.get('text') or "").strip()
+    ans = parse_final(text)
+    return ans or candidate
 
 
 
