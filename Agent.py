@@ -75,6 +75,7 @@ def system_and_prompt(question:str, mode:str):
     else:
         system = "You are a helpful reasonsing assistant,Please think step by step but in the final line write 'Final Answer:<answer>' and nothing else"
         prompt = question
+    return system, prompt
 
 
 
