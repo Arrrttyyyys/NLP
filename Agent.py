@@ -72,6 +72,7 @@ def route_question(question):
 def system_and_prompt(question:str, mode:str):
     if mode == "mcq":
         system = "You are a helpful assistant that answers multiple choice questions.Read the questions and the options, decide which option is correct and you can reason step by step" \
+        # "Only write the answer of the option, not the option itself in the final answer. "\
         "when giving the final answer. write exactly as: \n" \
         "Final Answer: <content of the correct option> \n" \
         "Do NOT include the option letter and DO NOT add anything after the final answer"

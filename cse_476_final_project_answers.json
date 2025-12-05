@@ -3,7 +3,7 @@
     "output": "A"
   },
   {
-    "output": "0.30 \\times 2500 + 0.10 \\times (2500 - 1000)"
+    "output": "750"
   },
   {
     "output": "Warner Bros. Records"
@@ -12,7 +12,7 @@
     "output": "7"
   },
   {
-    "output": "26.7% of the Victorian population"
+    "output": "1,602,000"
   },
   {
     "output": "1939"
@@ -24,7 +24,7 @@
     "output": "7"
   },
   {
-    "output": "汤米筹到了 $237。"
+    "output": "$213"
   },
   {
     "output": "(A) green ball"
@@ -42,10 +42,10 @@
     "output": "160"
   },
   {
-    "output": "700"
+    "output": "840"
   },
   {
-    "output": "15"
+    "output": "15 ounces"
   },
   {
     "output": "(C) The Lion King"
@@ -54,9 +54,9 @@
     "output": "Napoleon Bonaparte"
   },
   {
-    "output": "(B) little old green snorkeling sweater"
+    "output": "B"
   },
   {
-    "output": "26"
+    "output": "20"
   }
 ]
