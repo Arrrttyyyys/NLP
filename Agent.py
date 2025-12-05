@@ -104,7 +104,7 @@ def system_and_prompt(question:str, mode:str):
 def parse_final(text:str) -> str:
     if not text:
         return "VOLCANO"
-    m = re.search(r'Final Answer:\s*:\s*(.+)', text, re.IGNORECASE)
+    m = re.search(r'Final Answer\s*:\s*(.+)',text,re.IGNORECASE)
     if m:
         ans = m.group(1).strip()
     else:
