@@ -66,7 +66,7 @@ def route_question(question):
 def system_and_prompt(question:str, mode:str):
     prompt = question
     if mode == "mcq":
-        system = "You are a helpful assistant that answers multiple choice questions.Read the questions and the options, decide which option is correct and you can reason step by step, Reply with only the text of the correct option and not the letter of the optionDo NOT include the option letter (A/B/C/D/E) and DO NOT add explanations or extra words. do not restate the questions. output only the option text"
+        system = "You are a helpful assistant that answers multiple choice questions.Read the questions and the options, decide which option is correct, Reply with only the text of the correct option and not the letter of the optionDo NOT include the option letter (A/B/C/D/E) and DO NOT add explanations or extra words. do not restate the questions. output only the option text"
         # "Only write the answer of the option, not the option itself in the final answer. "\
         # "Reply with only the text of the correct option and not the letter of the option" \
         # "Do NOT include the option letter (A/B/C/D/E) and DO NOT add explanations or extra words "
@@ -140,11 +140,9 @@ def answer_reflection(question:str,candidate:str) -> str:
     #     "when giving the final answer. write exactly as: \n" \
     #     "Final Answer: <answer> \n" \
     #     "DO NOT add anything after the final answer"
-    prompt = ("consider the following question and answer.\n"
-              "Question: {}\n"
-              f"{question}\n"
-              "Given answer: \n"
-              f"{candidate}\n"
+    prompt = (f"consider the following question and answer.\n"
+              f"Question:{question}\n\n"
+              f"Given answer: {candidate}\n\n"
               "please decide wheter the given answer is correct. if it is correct repeat the answer back as the final answer"
               "If it is incorrect,fix the answer and reply with only the corrct final answer with no explanations")
     r = call_model_chat_completions(prompt,system=system,temperature=0.0)
