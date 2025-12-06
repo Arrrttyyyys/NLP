@@ -53,29 +53,23 @@ def call_model_chat_completions(prompt: str,
     except requests.RequestException as e:
         return {"ok": False, "text": None, "raw": None, "status": -1, "error": str(e), "headers": {}}
 
-
-
-
-
 def route_question(question):
     q = question.lower()
-    if  'passage' in q or 'context:' in q:
+    if  len(question) > 500 or 'passage' in q or 'context:' in q:
         return "rc"
     if re.search(r'\b[a-d]\)',question) or re.search(r'\bA\.\s',question) or "option" in q:
         return "mcq"
     if any(sym in question for sym in ['+','$','-','*','/','=','^']) or re.search(r'\d',question):
         return "math"
-    if len(question) > 500:
-        return "rc"
     return "default"
 
 def system_and_prompt(question:str, mode:str):
+    prompt = question
     if mode == "mcq":
         system = "You are a helpful assistant that answers multiple choice questions.Read the questions and the options, decide which option is correct and you can reason step by step, Reply with only the text of the correct option and not the letter of the optionDo NOT include the option letter (A/B/C/D/E) and DO NOT add explanations or extra words. do not restate the questions. output only the option text"
         # "Only write the answer of the option, not the option itself in the final answer. "\
         # "Reply with only the text of the correct option and not the letter of the option" \
         # "Do NOT include the option letter (A/B/C/D/E) and DO NOT add explanations or extra words "
-        prompt = question
     elif mode == "math":
         # system = "You are a math solver, when a question is given to you, you must solve it and compute the correct answer,YOU MUST ALWAYS RETURN ONLY THE FINAL NUMERIC ANSWER, no explanation, no steps, no words, no lables, no punctuation, if your output contains anything except the number it is considered wrong." 
         # system = "You are a careful and expert mathematician.Solve the problem step by step using basic arithmetic and math solving skills. " \
@@ -84,21 +78,18 @@ def system_and_prompt(question:str, mode:str):
         # "when giving the final answer. write exactly as: \n" \
         # "Final Answer: <final numerical value or simplest expression> \n" \
         # "DO NOT add anything after the final answer"
-        prompt = question
     elif mode == "rc":
-        system = "You are a helpful assistant that reads passages and answers questions. output only the final answer, no explanations or extra text. "
+        system = "You are a helpful assistant that reads passages and answers questions. reply with only the final answer, no explanations or extra text.DO NOT SHOW any of your reasoning, explanations or words."
         # system = "You are a helpful assistant that reads passages and answers questions, you are allowed to reason step by step" \
         # "when giving the final answer. write exactly as: \n" \
         # "Final Answer: <short answer which can be a word,phrase,number> \n" \
         # "DO NOT add anything after the final answer"
-        prompt = question
     else:
         system = "You are a helpful reasonsing assistant, REPLY ONLY WITH THE CORRECT ANSWER as a word or a number, Do not give any explanation or extra text."
         # system = "You are a helpful reasonsing assistant, you are allowed to reason step by step" \
         # "when giving the final answer. write exactly as: \n" \
         # "Final Answer: <short answer which can be a word,phrase,number> \n" \
         # "DO NOT add anything after the final answer"
-        prompt = question
     return system, prompt
 
 def parse_final(text:str) -> str:
@@ -112,7 +103,6 @@ def parse_final(text:str) -> str:
     ans = l[-1] if l else "VOLCANO"
 
     ans = re.sub(r'^\s*\*{0,2}\s*(final answer|answer)\s*[:\-]*\s*\*{0,2}\s*','',ans,flags=re.IGNORECASE).strip()
-
     ans = re.sub(r'^\*+|\*+$', '', ans).strip()
 
     if any(sym in ans for sym in ['\\','$','+','-','+','/','=','^']):
@@ -161,9 +151,6 @@ def answer_reflection(question:str,candidate:str) -> str:
     text = (r.get('text') or "").strip()
     ans = parse_final(text)
     return ans or candidate
-
-
-
 
 def run_agent(question_input: str) -> str:
     mode = route_question(question_input)
