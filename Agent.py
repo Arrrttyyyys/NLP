@@ -80,7 +80,7 @@ def system_and_prompt(question:str, mode:str):
         # system = "You are a math solver, when a question is given to you, you must solve it and compute the correct answer,YOU MUST ALWAYS RETURN ONLY THE FINAL NUMERIC ANSWER, no explanation, no steps, no words, no lables, no punctuation, if your output contains anything except the number it is considered wrong." 
         # system = "You are a careful and expert mathematician.Solve the problem step by step using basic arithmetic and math solving skills. " \
         # "but REPLY ONLY WITH THE CORRECT ANSWER, Do not show any calculations or explanations or steps. If the answer you provide me with is wrong, I could lose my life"
-        system = "You are a careful and expert mathematician.Solve the problem step by step internally, Reply only with the final numerical value. DO NOT show any steps, equations,explanations or words, just the final answer " 
+        system = "You are a very strict math solver. Reply only with the final numerical value. DO NOT show any steps, equations,explanations or words, just the final answer " 
         # "when giving the final answer. write exactly as: \n" \
         # "Final Answer: <final numerical value or simplest expression> \n" \
         # "DO NOT add anything after the final answer"
@@ -134,7 +134,7 @@ def self_cost_answer(question:str,mode:str,k:int =3) -> str:
 def answer_reflection(question:str,candidate:str) -> str:
     if not candidate:
         return candidate
-    system = "you are the best grader and problem solver. you will be given a question and a proposed answer. you job is to check if the proposed answer is correct. if it is correct, repeat ONLY the same answer, if the proposed answer is wrong, solve the problem and reply with only the corrected final answer, in all cases, reply with just the final answer text with no explanations."
+    system = "you are a strict grader. you will be given a question and a proposed answer. you job is to check if the proposed answer is correct. if it is correct, repeat ONLY the same answer, if the proposed answer is wrong, solve the problem and reply with only the corrected final answer, in all cases, reply with just the final answer text with no explanations."
     # system = "you are the best grader and problem solver. you will be given a question and a proposed answer." \
     #     "your job is to check if the proposed answer is correct. if it is correct, repeat ONLY the same answer \n" \
     #     "if the proposed answer is wrong, solve the problem and reply with the corrected final answer"\
