@@ -80,7 +80,7 @@ def system_and_prompt(question:str, mode:str):
         # system = "You are a math solver, when a question is given to you, you must solve it and compute the correct answer,YOU MUST ALWAYS RETURN ONLY THE FINAL NUMERIC ANSWER, no explanation, no steps, no words, no lables, no punctuation, if your output contains anything except the number it is considered wrong." 
         # system = "You are a careful and expert mathematician.Solve the problem step by step using basic arithmetic and math solving skills. " \
         # "but REPLY ONLY WITH THE CORRECT ANSWER, Do not show any calculations or explanations or steps. If the answer you provide me with is wrong, I could lose my life"
-        system = "You are a very strict math solver. Reply only with the final numerical value. DO NOT show any steps, equations,explanations or words, just the final answer " 
+        system = "You are a very strict math solver.if unsure of the answer, do not guess, use arithmetic to compute the answer. Reply only with the final numerical value. DO NOT show any steps, equations,explanations or words, just the final answer " 
         # "when giving the final answer. write exactly as: \n" \
         # "Final Answer: <final numerical value or simplest expression> \n" \
         # "DO NOT add anything after the final answer"
@@ -111,8 +111,13 @@ def parse_final(text:str) -> str:
     l = [ln.strip() for ln in text.strip().splitlines() if ln.strip()]
     ans = l[-1] if l else "VOLCANO"
 
-    if len(ans) > 200:
-        ans = ans[:200]
+    if any(sym in ans for sym in ['\\','$','+','-','+','/','=','^']):
+        a = re.findall(r"\d+(?:\.\d+)?",ans)
+        if a:
+            return a[-1]
+
+    # if len(ans) > 200:
+    #     ans = ans[:200]
     return ans
 
 def self_cost_answer(question:str,mode:str,k:int =3) -> str:

@@ -3,7 +3,7 @@
     "output": "Condensation"
   },
   {
-    "output": "$750"
+    "output": "750"
   },
   {
     "output": "Warner Bros. Records"
@@ -12,7 +12,7 @@
     "output": "8"
   },
   {
-    "output": "1762200"
+    "output": "387000"
   },
   {
     "output": "1939"
@@ -21,10 +21,10 @@
     "output": "Donald C. Paup"
   },
   {
-    "output": "10"
+    "output": "**Answer: 7**"
   },
   {
-    "output": "$ 43 \\times 3 + 23 \\times 4 = 129 + 92 = 221 $"
+    "output": "221"
   },
   {
     "output": "green ball"
@@ -39,7 +39,7 @@
     "output": "No"
   },
   {
-    "output": "100"
+    "output": "120"
   },
   {
     "output": "560"
@@ -57,6 +57,6 @@
     "output": "little old green snorkeling sweater"
   },
   {
-    "output": "20"
+    "output": "21"
   }
 ]
