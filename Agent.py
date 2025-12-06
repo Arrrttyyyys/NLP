@@ -113,6 +113,8 @@ def parse_final(text:str) -> str:
 
     ans = re.sub(r'^\s*\*{0,2}\s*(final answer|answer)\s*[:\-]*\s*\*{0,2}\s*','',ans,flags=re.IGNORECASE).strip()
 
+    ans = re.sub(r'^\*+|\*+$', '', ans).strip()
+
     if any(sym in ans for sym in ['\\','$','+','-','+','/','=','^']):
         a = re.findall(r"\d+(?:\.\d+)?",ans)
         if a:
