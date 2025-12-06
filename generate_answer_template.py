@@ -66,7 +66,7 @@ def validate_results(
 
 
 def main() -> None:
-    questions = load_questions(INPUT_PATH)[:20]
+    questions = load_questions(INPUT_PATH)
     answers = build_answers(questions)
 
     with OUTPUT_PATH.open("w") as fp:
